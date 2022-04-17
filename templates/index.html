@@ -2,27 +2,29 @@
 
 {% block body %}
 
-    
+
 
     <div class="container">
     <div class="row">
         {% if filename %}
             <div>
-                <img src="{{ url_for('display_image', filename=filename) }}">
+                <p>Selected image</p>
+                <img src="{{ url_for('display_image', filename=filename) }}" width="400" height="400" >
             </div>
+            <p>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+
+                {% endif %}
+                {% endwith %}
+            </p>
         {% endif %}
-        <p>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul>
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-                </ul>
-            {% endif %}
-            {% endwith %}
-        </p>
-        
+
+        <h4>Select an image</h4>
         <form method="post" action="/" enctype="multipart/form-data">
             <dl>
                 <p>
@@ -34,7 +36,7 @@
             </p>
         </form>
 
-        
+
     </div>
     </div>
 
