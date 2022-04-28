@@ -1,4 +1,4 @@
 gunicorn
 flask
-torch==1.11.0
-fastai==2.2.0
+torchvision==0.2.2
+fastai==1.0.52
