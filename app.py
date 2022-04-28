@@ -2,7 +2,6 @@ from flask import Flask, flash, request, redirect, url_for, render_template
 import urllib.request
 import os
 from werkzeug.utils import secure_filename
-import sqlite3
 from fastai.vision.all import *
 
 DATABASE = 'F_images.sqlite'
@@ -20,7 +19,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
-
+"""
 def db_connect():
     conn = None
     try :
@@ -28,7 +27,7 @@ def db_connect():
     except sqlite3.error as e:
         print(e)
     return conn
-
+"""
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -36,6 +35,7 @@ def allowed_file(filename):
 @app.route('/')
 def home():
     return render_template('index.html')
+    print("In the indexpage")
 
 @app.route('/', methods=['POST'])
 def upload_image():
@@ -63,11 +63,11 @@ def upload_image():
         flash('Prediction : '+str(pred))
         #flash('Image successfully uploaded and displayed below')
 
-        con = db_connect()
-        cur = con.cursor()
-        cur.execute("INSERT INTO image (fileName, prediction) VALUES (?,?)", (str(filename),str(pred),))
-        con.commit()
-        con.close()
+        #con = db_connect()
+        #cur = con.cursor()
+        #cur.execute("INSERT INTO image (fileName, prediction) VALUES (?,?)", (str(filename),str(pred),))
+        #con.commit()
+        #con.close()
 
         return render_template('index.html', filename=filename)
 
