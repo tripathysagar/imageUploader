@@ -1,4 +1,1 @@
-gunicorn
-flask
-torchvision==0.2.2
-fastai==1.0.52
+Flask==2.0.2
