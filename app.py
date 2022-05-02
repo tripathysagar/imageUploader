@@ -2,7 +2,7 @@ from flask import Flask, flash, request, redirect, url_for, render_template
 import urllib.request
 import os
 from werkzeug.utils import secure_filename
-import sqlite3
+
 
 
 #DATABASE = 'F_images.sqlite'
@@ -27,6 +27,7 @@ def allowed_file(filename):
 @app.route('/')
 def home():
     return render_template('index.html')
+    print("In the indexpage")
 
 @app.route('/', methods=['POST'])
 def upload_image():
