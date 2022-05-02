@@ -7,10 +7,6 @@
     <div class="container">
     <div class="row">
         {% if filename %}
-            <div>
-                <p>Selected image</p>
-                <img src="{{ url_for('display_image', filename=filename) }}" width="400" height="400" >
-            </div>
             <p>
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
@@ -22,6 +18,11 @@
                 {% endif %}
                 {% endwith %}
             </p>
+            <div>
+                
+                <img src="{{ url_for('display_image', filename=filename) }}" width="400" height="400" >
+            </div>
+            
         {% endif %}
 
         <h4>Select an image</h4>
