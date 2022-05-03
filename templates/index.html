@@ -6,18 +6,19 @@
 
     <div class="container">
     <div class="row">
+        <p>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+
+            {% endif %}
+            {% endwith %}
+        </p>
         {% if filename %}
-            <p>
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-
-                    {% for message in messages %}
-                    <li>{{ message }}</li>
-                    {% endfor %}
-
-                {% endif %}
-                {% endwith %}
-            </p>
+            
             <div>
                 
                 <img src="{{ url_for('display_image', filename=filename) }}" width="400" height="400" >
