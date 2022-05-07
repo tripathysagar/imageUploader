@@ -1,4 +1,3 @@
-import onnx
 import onnxruntime as ort
 import numpy as np
 import json
@@ -21,7 +20,7 @@ labelfile=os.path.join(d , 'labels.json')
 #print(d)
 labels = load_labels(labelfile)
 #print(labels)
-ort_sess = ort.InferenceSession(modelfile,  providers=['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider'])
+ort_sess = ort.InferenceSession(modelfile, None)
 
 
 def preprocess(input_data):
@@ -83,14 +82,15 @@ def predict_image_from_file(img_path):
     return response
 
 
-if __name__ == '__main__':
-    path = os.path.join(d, '94974-cat-animals-Russia.jpg')
-    print(predict_image_from_file(path))
 
 
     
     
 """
+if __name__ == '__main__':
+    path = os.path.join(d, '94974-cat-animals-Russia.jpg')
+    print(predict_image_from_file(path))
+
 
 path = os.path.join(d, '94974-cat-animals-Russia.jpg')
 

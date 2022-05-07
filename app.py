@@ -3,8 +3,10 @@ from flask import Flask, flash, request, redirect, url_for, render_template
 import urllib.request
 import os
 from werkzeug.utils import secure_filename
-#from pred import predict_image_from_file
+#import onnxruntime as ort
+from pred import predict_image_from_file
 #from temp import fun
+
 
 #DATABASE = 'F_images.sqlite'
 
@@ -27,7 +29,7 @@ def allowed_file(filename):
 
 @app.route('/')
 def home():
-    print('Request for index page received')
+    #print('Request for index page received')
     return render_template('index.html')
     
 
@@ -48,15 +50,15 @@ def upload_image():
 
 
 
-        flash('Image successfully uploaded and displayed below')
-        #resp = predict_image_from_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        #flash('Prediction: ' + resp['prediction'] + ' with confidence ' + str(resp['confidence']))
+        #flash('Image successfully uploaded and displayed below')
+        resp = predict_image_from_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        flash('Prediction: ' + resp['prediction'] + ' with confidence ' + str(resp['confidence']))
         #print('Prediction: ' + resp['prediction'] + ' with confidence ' + str(resp['confidence']))
-        print('uploaded image')
+        #print('uploaded image')
         return render_template('index.html', filename=filename)
 
     else:
-        print('not able to upload image')
+        #print('not able to upload image')
         flash('Allowed image types are - png, jpg, jpeg')
         return redirect(request.url)
 
@@ -65,3 +67,9 @@ def display_image(filename):
     print('render image')
     #print('display_image filename: ' + filename)
     return redirect(url_for('static', filename='uploads/' + filename), code=301)
+
+
+
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
