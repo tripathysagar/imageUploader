@@ -15,7 +15,7 @@ def load_labels(path):
 
 # Run the model on the backend
 d=os.path.dirname(os.path.abspath(__file__))
-modelfile=os.path.join(d , 'model3.onnx')
+modelfile=os.path.join(d , 'model_2_resnet34.onnx')
 labelfile=os.path.join(d , 'labels.json')
 #print(d)
 labels = load_labels(labelfile)
