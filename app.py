@@ -1,3 +1,4 @@
+from distutils.command.config import config
 from urllib import response
 from flask import Flask, flash, request, redirect, url_for, render_template
 import urllib.request
@@ -52,8 +53,11 @@ def upload_image():
 
         #flash('Image successfully uploaded and displayed below')
         resp = predict_image_from_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        flash('Prediction: ' + resp['prediction'] + ' with confidence ' + str(resp['confidence']))
-        #print('Prediction: ' + resp['prediction'] + ' with confidence ' + str(resp['confidence']))
+        confidence = round(resp['confidence'] * 100, 3)
+        
+        
+        flash('Prediction: ' + resp['prediction'] + ' with confidence ' + str(confidence ) + '%')
+        
         #print('uploaded image')
         return render_template('index.html', filename=filename)
 
