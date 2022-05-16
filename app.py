@@ -4,7 +4,6 @@ from flask import Flask, flash, request, redirect, url_for, render_template
 import urllib.request
 import os
 from werkzeug.utils import secure_filename
-#import onnxruntime as ort
 from pred import predict_image_from_file
 #from temp import fun
 from PIL import Image
@@ -45,19 +44,21 @@ def upload_image():
         flash('No image selected for uploading')
         return redirect(request.url)
     if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        #file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        filename = secure_filename(file.filename)   # get the file name 
+        
         photo = Image.open(file)
         photo = photo.resize((224, 224))
 
         photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        print(photo.size)
-        print(filename)
+        #print(photo.size)
+        #print(filename)
 
 
 
         #flash('Image successfully uploaded and displayed below')
-        resp = predict_image_from_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        #resp = predict_image_from_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        resp = predict_image_from_file(photo)
+        
         confidence = round(resp['confidence'] * 100, 3)
         
         

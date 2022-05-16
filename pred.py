@@ -5,7 +5,7 @@ import os
 import sys
 import time
 
-from PIL import Image, ImageDraw, ImageFont, ImageOps
+#from PIL import ImageDraw, ImageFont
 
 
 def load_labels(path):
@@ -48,17 +48,14 @@ def postprocess(result):
     return softmax(np.array(result)).tolist()
 
 
-def predict_image_from_file(img_path):
+def predict_image_from_file(img):
     """
     img_path : the location of the image file to be processed
     This functiion re-shape the input image, normalize the input
 
     """
-    image = Image.open(img_path)
-
-    imnew=ImageOps.fit(image, (224,224))
-
-    image_data = np.array(imnew).transpose(2, 0, 1)
+    
+    image_data = np.array(img).transpose(2, 0, 1)
     input_data = preprocess(image_data)
     #print(input_data.shape)
     #print("********************************************************")
@@ -81,20 +78,3 @@ def predict_image_from_file(img_path):
 
     return response
 
-
-
-
-    
-    
-"""
-if __name__ == '__main__':
-    path = os.path.join(d, '94974-cat-animals-Russia.jpg')
-    print(predict_image_from_file(path))
-
-
-path = os.path.join(d, '94974-cat-animals-Russia.jpg')
-
-
-print(predict_image(path))
-
-"""
