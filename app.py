@@ -7,6 +7,7 @@ from werkzeug.utils import secure_filename
 #import onnxruntime as ort
 from pred import predict_image_from_file
 #from temp import fun
+from PIL import Image
 
 
 #DATABASE = 'F_images.sqlite'
@@ -45,9 +46,13 @@ def upload_image():
         return redirect(request.url)
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        
+        #file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        photo = Image.open(file)
+        photo = photo.resize((224, 224))
 
+        photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        print(photo.size)
+        print(filename)
 
 
 

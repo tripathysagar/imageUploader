@@ -2,3 +2,4 @@ __pycache__
 wsgi.py
 entrypoint.py
 Dockerfile
+gunicorn_config.py
